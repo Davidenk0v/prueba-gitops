@@ -4,7 +4,7 @@ metadata:
   name: mi-api
   namespace: mi-api
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
       app: mi-api
@@ -15,13 +15,13 @@ spec:
     spec:
       containers:
         - name: mi-api
-          image: mi-api:v1
+          image: mi-api:v2
           imagePullPolicy: Never        # Usar imagen local cargada con kind load
           ports:
             - containerPort: 3000
           env:
             - name: APP_VERSION
-              value: "v1"
+              value: "v2"
           readinessProbe:               # Kubernetes comprueba si el pod está listo
             httpGet:
               path: /health
@@ -35,7 +35,7 @@ spec:
             initialDelaySeconds: 15
             periodSeconds: 20
           resources:
-            requests:
+            requeists:
               memory: "64Mi"
               cpu: "100m"
             limits:
